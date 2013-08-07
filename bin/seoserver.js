@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-
-
 var program = require('commander');
 var fs = require('fs');
 var forever = require('forever-monitor');
@@ -10,18 +8,19 @@ var forever = require('forever-monitor');
 
 program
   .version('0.0.1')
-  .option('-p, --port <location>', 'Specifiy a port to run on')
-
+  .option('-p, --port <port>', 'The port to bind to')
+  .option('-h, --host <hostname>', 'The hostname to proxy to')
 
 program
   .command('start')
   .description('Starts up an SeoServer on default port 3000')
   .action(function () {
+    var port = program.port || process.env.PORT || 3000;
+    var host = program.host || process.env.HOST || 'localhost:4000';
     var child = new (forever.Monitor)(__dirname + '/../lib/seoserver.js', {
-      options: [program.port]
+      options: [port, host]
     });
     child.start();
-    console.log(__dirname, 'SeoServer successfully started');
   });
 
 program.parse(process.argv);

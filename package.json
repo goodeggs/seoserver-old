@@ -6,8 +6,16 @@
     "seoserver": "./bin/seoserver.js"
   },
   "dependencies": {
-    "commander": "~1.0.2",
-    "forever-monitor": "~1.1.0",
-    "express": "~3.0.0rc4"
+    "commander": "*",
+    "forever-monitor": "*",
+    "express": "*",
+    "http-proxy": "*"
+  },
+  "devDependencies": {
+    "coffee-script": "*"
+  },
+  "scripts": {
+    "pretest": "./node_modules/.bin/coffee -c -o lib src",
+    "test": "/usr/bin/true"
   }
 }
